@@ -1,19 +1,22 @@
 package com.youtube.jovemtranquilao.debug.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.security.NoSuchAlgorithmException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.youtube.jovemtranquilao.debug.business.LoginBusiness;
+import com.youtube.jovemtranquilao.debug.dto.Login;
 
 @RestController
 public class DebugRestController {
-	@GetMapping("/{teste}")
-	public String get(@RequestParam("parametro") String parametro,
-			@PathVariable("teste") String teste) {
-		String retorno = "josé";
-				
-		retorno += " das couves";
-		
-		return retorno;
+	@Autowired
+	private LoginBusiness loginBusiness;
+
+	@PostMapping("/login")
+	public Login login(@RequestBody Login login) throws NoSuchAlgorithmException {
+		return loginBusiness.save(login);
 	}
 }
